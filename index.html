@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&display=swap');
+
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 0;
+    margin: 0;
+    background-color: #0b1522;
+    position: relative;
+  }
+
+  #heart {
+    height: 100px;
+    width: 100px;
+    background-color: #f20044;
+    position: relative;
+    transform: rotate(-45deg);
+    box-shadow: -20px 20px 90px #f20044;
+    animation: heartbeat 0.6s linear infinite;
+    margin-bottom: 60px;
+  }
+
+  #heart::before {
+    content: "";
+    position: absolute;
+    height: 100px;
+    width: 100px;
+    background-color: #f20044;
+    top: -60px;
+    border-radius: 45px;
+    box-shadow: -10px -10px 90px #f20044;
+  }
+
+  #heart::after {
+    content: "";
+    position: absolute;
+    height: 100px;
+    width: 100px;
+    background-color: #f20044;
+    right: -60px;
+    border-radius: 45px;
+    box-shadow: 10px 10px 90px #f20044;
+  }
+
+  .text {
+    height: 90px;
+    color: white;
+    font-family: "Gabarito", sans-serif;
+    font-size: 1.5rem;
+  }
+
+  .text-white {
+    color: white;
+  }
+
+  .line {
+    font-family: "Gabarito", sans-serif;
+    position: absolute;
+    bottom: 2px;
+    right: 10px
+  }
+
+  @keyframes heartbeat {
+    0% {
+      transform: rotate(-45deg) scale(1.07);
+    }
+
+    80% {
+      transform: rotate(-45deg) scale(1);
+    }
+
+    100% {
+      transform: rotate(-45deg) scale(1.20);
+    }
+  }
+</style>
+
+<body>
+  <p class="line text-white">Happy 17th! I love you ❤️</p>
+  <p class="text">This heart will stop beating</p>
+  <div class="heart" id="heart"></div>
+  <p class="text">The day I stopped loving you Samira.</p>
+  <script>
+    var color = "#f20044";
+    var heart1 = document.getElementById("heart");
+
+    // Ensure the initial background and box-shadow are set correctly
+    heart1.style.backgroundColor = color;
+    heart1.style.boxShadow = `10px 10px 90px ${color}`;
+
+    // Create and append the initial style element for pseudo-elements
+    const style = document.createElement('style');
+    style.textContent = `
+    #heart::before, #heart::after {
+        background-color: ${color};
+        box-shadow: 10px 10px 90px ${color};
+    }
+`;
+    document.head.append(style);
+
+    heart1.addEventListener("click", () => {
+      // Toggle the color between #8963BA and #f20044
+      color = color == '#8963BA' ? '#f20044' : '#8963BA';
+
+      // Update the main element's background and box-shadow
+      heart1.style.backgroundColor = color;
+      heart1.style.boxShadow = `10px 10px 90px ${color}`;
+
+      // Update the pseudo-elements' styles
+      style.textContent = `
+        #heart::before, #heart::after {
+            background-color: ${color};
+            box-shadow: 10px 10px 90px ${color};
+        }
+    `;
+      console.log("click", color); // Log the current color
+    });
+
+    // Adding a class to the element to initially apply the styles
+    heart1.classList.add('modified');
+  </script>
+</body>
+
+</html>
